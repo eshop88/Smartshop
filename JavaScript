@@ -1,0 +1,55 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("itemInput");
+    const button = document.getElementById("addItemButton");
+    const list = document.getElementById("shoppingList");
+
+    // Funktion, um die Liste aus dem localStorage zu laden
+    function loadList() {
+        const savedItems = JSON.parse(localStorage.getItem("shoppingList"));
+        if (savedItems && Array.isArray(savedItems)) {
+            savedItems.forEach(itemText => {
+                addItemToList(itemText);
+            });
+        }
+    }
+
+    // Funktion, um ein neues Element hinzuzufügen
+    function addItemToList(itemText) {
+        const li = document.createElement("li");
+        li.textContent = itemText;
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Entfernen";
+        deleteBtn.style.marginLeft = "10px";
+        deleteBtn.addEventListener("click", function () {
+            list.removeChild(li);
+            saveList();
+        });
+
+        li.appendChild(deleteBtn);
+        list.appendChild(li);
+    }
+
+    // Funktion, um die Liste im localStorage zu speichern
+    function saveList() {
+        const items = [];
+        const listItems = list.getElementsByTagName("li");
+        for (let i = 0; i < listItems.length; i++) {
+            items.push(listItems[i].textContent.replace(" Entfernen", ""));
+        }
+        localStorage.setItem("shoppingList", JSON.stringify(items));
+    }
+
+    // Event-Listener zum Hinzufügen eines neuen Artikels
+    button.addEventListener("click", function () {
+        const itemText = input.value.trim();
+        if (itemText === "") return;
+
+        addItemToList(itemText);
+        saveList();
+        input.value = "";
+    });
+
+    // Liste beim Laden der Seite wiederherstellen
+    loadList();
+});
