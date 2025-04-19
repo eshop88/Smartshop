@@ -110,3 +110,103 @@ function addItem() {
     <p>Hier entsteht dein Webshop-Projekt.</p>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Smartshop – Dein Webshop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background: #34495e;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        .container {
+            padding: 20px;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .product {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Smartshop</h1>
+        <p>Dein smarter Webshop – Einfach. Schnell. Online.</p>
+    </header>
+
+    <nav>
+        <a href="#">Startseite</a>
+        <a href="#">Produkte</a>
+        <a href="#">Kontakt</a>
+    </nav>
+
+    <div class="container">
+        <h2>Unsere Top-Produkte</h2>
+        <div class="products">
+            <div class="product">
+                <img src="https://via.placeholder.com/200x150" alt="Produkt 1">
+                <h3>Produkt 1</h3>
+                <p>Beschreibung des Produkts.</p>
+                <strong>29,99 €</strong>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/200x150" alt="Produkt 2">
+                <h3>Produkt 2</h3>
+                <p>Beschreibung des Produkts.</p>
+                <strong>49,99 €</strong>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/200x150" alt="Produkt 3">
+                <h3>Produkt 3</h3>
+                <p>Beschreibung des Produkts.</p>
+                <strong>19,99 €</strong>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 Smartshop – Alle Rechte vorbehalten
+    </footer>
+
+</body>
+</html>
