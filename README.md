@@ -309,3 +309,132 @@ function addItem() {
 
 </body>
 </html>
+mkdir smartshop-backend
+cd smartshop-backend
+npm init -y
+npm install express mongoose bcryptjs jsonwebtoken body-parserconst express = require("express");
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const bodyParser = require("body-parser");
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// Middleware
+app.use(bodyParser.json());
+
+// MongoDB-Verbindung
+mongoose.connect("mongodb://localhost/smartshop", { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log("MongoDB verbunden"))
+    .catch(err => console.log(err));
+
+// Benutzer-Schema
+const userSchema = new mongoose.Schema({
+    username: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+});
+
+const User = mongoose.model("User", userSchema);
+
+// Registrierung eines Benutzers
+app.post("/api/register", async (req, res) => {
+    const { username, email, password } = req.body;
+
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+        return res.status(400).json({ msg: "Benutzer existiert bereits" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newUser = new User({ username, email, password: hashedPassword });
+    await newUser.save();
+
+    res.status(201).json({ msg: "Benutzer registriert" });
+});
+
+// Anmeldung eines Benutzers
+app.post("/api/login", async (req, res) => {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+        return res.status(400).json({ msg: "Benutzer nicht gefunden" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+        return res.status(400).json({ msg: "Ungültiges Passwort" });
+    }
+
+    const token = jwt.sign({ userId: user._id }, "meinGeheimToken", { expiresIn: "1h" });
+
+    res.json({ token });
+});
+
+// Starten des Servers
+app.listen(PORT, () => {
+    console.log(`Server läuft auf Port ${PORT}`);
+});
+<section id="auth">
+    <h2>Registrierung / Anmeldung</h2>
+    <form id="registerForm">
+        <input type="text" id="registerUsername" placeholder="Benutzername" required>
+        <input type="email" id="registerEmail" placeholder="Email" required>
+        <input type="password" id="registerPassword" placeholder="Passwort" required>
+        <button type="submit">Registrieren</button>
+    </form>
+
+    <form id="loginForm">
+        <input type="email" id="loginEmail" placeholder="Email" required>
+        <input type="password" id="loginPassword" placeholder="Passwort" required>
+        <button type="submit">Anmelden</button>
+    </form>
+</section>
+document.getElementById("registerForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const username = document.getElementById("registerUsername").value;
+    const email = document.getElementById("registerEmail").value;
+    const password = document.getElementById("registerPassword").value;
+
+    const res = await fetch("http://localhost:5000/api/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, email, password }),
+    });
+
+    const data = await res.json();
+    alert(data.msg);
+});
+
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    const res = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+    });
+
+    const data = await res.json();
+
+    if (data.token) {
+        localStorage.setItem("authToken", data.token);
+        alert("Erfolgreich eingeloggt!");
+    } else {
+        alert("Anmeldung fehlgeschlagen");
+    }
+});
+
+
