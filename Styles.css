@@ -1,0 +1,44 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f5f5f5;
+  color: #333;
+}
+
+header, footer {
+  background-color: #0a74da;
+  color: white;
+  text-align: center;
+  padding: 1em;
+}
+
+section {
+  padding: 1em;
+  margin: 1em;
+  background: white;
+  border-radius: 8px;
+}
+
+input[type="text"] {
+  padding: 0.5em;
+  width: 70%;
+}
+
+button {
+  padding: 0.5em;
+  background: #0a74da;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  padding: 0.3em 0;
+  border-bottom: 1px solid #ddd;
+}
