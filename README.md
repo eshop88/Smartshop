@@ -208,7 +208,7 @@ function addItem() {
     <h1>Willkommen bei Smartshop!</h1>
     <p>Hier entsteht dein Webshop-Projekt.</p>
 </body>
-</html>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
