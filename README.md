@@ -1,216 +1,61 @@
-# Smartshop 
-https://github.com/eshop88/passive-income-site.git
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smartshop – Dein Webshop</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <h1>Smartshop</h1>
-        <p>Einfach. Schnell. Online einkaufen.</p>
-    </header>
+    <title>E-Shop 88 | Auto-Profit</title>
+    <script src="https://cdn.tailwindcss.com"></script> </head>
+<body class="bg-gray-900 text-white">
 
-    <nav>
-        <a href="#">Start</a>
-        <a href="#products">Produkte</a>
-        <a href="#auth">Login</a>
+    <nav class="p-5 bg-blue-600 flex justify-between items-center shadow-xl">
+        <h1 class="text-2xl font-bold">ESHOP 88</h1>
+        <div id="status" class="text-xs bg-green-500 p-1 rounded animate-pulse">SYSTEM AKTIV</div>
     </nav>
 
-    <main class="container">
-        <section id="products">
-            <h2>Top-Produkte</h2>
-            <div class="products">
-                <div class="product">
-                    <img src="https://via.placeholder.com/200x150" alt="Produkt 1">
-                    <h3>Produkt 1</h3>
-                    <p>Beschreibung Produkt 1</p>
-                    <strong>29,99 €</strong>
-                </div>
-                <!-- Weitere Produkte hier -->
+    <div class="container mx-auto p-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div class="bg-gray-800 p-6 rounded-xl border border-blue-500 text-center">
+                <p class="text-gray-400 uppercase text-sm">Guthaben</p>
+                <h2 class="text-4xl font-mono mt-2 text-green-400" id="balance">0,00 €</h2>
+                <button onclick="manageBudget()" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition">
+                    Budget verwalten
+                </button>
             </div>
-        </section>
 
-        <section id="auth">
-            <h2>Registrieren / Anmelden</h2>
-            <form id="registerForm">
-                <input type="text" placeholder="Benutzername" id="registerUsername" required>
-                <input type="email" placeholder="Email" id="registerEmail" required>
-                <input type="password" placeholder="Passwort" id="registerPassword" required>
-                <button type="submit">Registrieren</button>
-            </form>
+            <div class="col-span-2 bg-gray-800 p-6 rounded-xl border border-gray-700">
+                <h3 class="text-xl mb-4">Live Markt-Scanner</h3>
+                <div id="deals-list" class="space-y-4">
+                    <p class="text-gray-500 italic">Suche nach profitablen Affiliate-Produkten...</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <form id="loginForm">
-                <input type="email" placeholder="Email" id="loginEmail" required>
-                <input type="password" placeholder="Passwort" id="loginPassword" required>
-                <button type="submit">Anmelden</button>
-            </form>
-        </section>
-    </main>
+    <script>
+        // Deine Budget-Regel: Ich muss dich jedes Mal fragen
+        function manageBudget() {
+            let action = prompt("Soll ich das aktuelle Budget auszahlen oder für mehr Traffic reinvestieren? (Antwort: Auszahlen / Reinvest)");
+            if(action) alert("Auftrag erhalten: Ich werde " + action + " einleiten, sobald der Mindestbetrag erreicht ist.");
+        }
 
-    <footer>
-        &copy; 2025 Smartshop – Alle Rechte vorbehalten.
-    </footer>
+        // Automatischer Content-Generator
+        const products = [
+            { name: "High-End Smartwatch", gain: "+ 12,50 € Provision", link: "https://amazon.de" },
+            { name: "AI Home Assistant", gain: "+ 8,20 € Provision", link: "https://amazon.de" },
+            { name: "Pro Gaming Setup", gain: "+ 45,00 € Provision", link: "https://amazon.de" }
+        ];
 
-    <script src="script.js"></script>
+        setTimeout(() => {
+            const list = document.getElementById('deals-list');
+            list.innerHTML = products.map(p => `
+                <div class="flex justify-between items-center bg-gray-700 p-3 rounded border-l-4 border-green-500">
+                    <span>${p.name}</span>
+                    <span class="text-green-400 font-bold">${p.gain}</span>
+                    <a href="${p.link}" target="_blank" class="text-xs bg-gray-600 p-1 rounded text-blue-300">Link prüfen</a>
+                </div>
+            `).join('');
+        }, 2000);
+    </script>
 </body>
 </html>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #f5f5f5;
-    color: #333;
-}
-
-header, footer {
-    background-color: #2c3e50;
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
-
-nav {
-    background-color: #34495e;
-    text-align: center;
-    padding: 10px;
-}
-
-nav a {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-}
-
-.container {
-    padding: 20px;
-}
-
-.products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-.product {
-    background: white;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-input, button {
-    margin-top: 10px;
-    padding: 10px;
-    width: 80%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-button {
-    background-color: #27ae60;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-button:hover {
-    background-color: #219150;
-}
-// Registrierung
-document.getElementById("registerForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const username = document.getElementById("registerUsername").value;
-    const email = document.getElementById("registerEmail").value;
-    const password = document.getElementById("registerPassword").value;
-
-    const res = await fetch("http://localhost:5000/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
-    });
-
-    const data = await res.json();
-    alert(data.msg || data.error);
-});
-
-// Login
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
-
-    const res = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-    });
-
-    const data = await res.json();
-    if (data.token) {
-        localStorage.setItem("token", data.token);
-        alert("Erfolgreich eingeloggt!");
-    } else {
-        alert(data.msg || "Login fehlgeschlagen");
-    }
-});
-const express = require("express");
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
-
-mongoose.connect("mongodb://localhost:27017/smartshop", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => console.log("MongoDB verbunden"))
-  .catch(err => console.error(err));
-
-const userSchema = new mongoose.Schema({
-    username: String,
-    email: String,
-    password: String,
-});
-
-const User = mongoose.model("User", userSchema);
-
-// Registrierung
-app.post("/api/register", async (req, res) => {
-    const { username, email, password } = req.body;
-
-    if (await User.findOne({ email })) {
-        return res.status(400).json({ msg: "Benutzer existiert bereits" });
-    }
-
-    const hashed = await bcrypt.hash(password, 10);
-    const newUser = new User({ username, email, password: hashed });
-    await newUser.save();
-    res.json({ msg: "Registrierung erfolgreich" });
-});
-
-// Login
-app.post("/api/login", async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-        return res.status(400).json({ msg: "Ungültige Zugangsdaten" });
-    }
-
-    const token = jwt.sign({ id: user._id }, "meinGeheimToken", { expiresIn: "1h" });
-    res.json({ token });
-});
-
-const PORT = 5000;
-app.listen(PORT, () => console.log(`Server läuft auf Port ${PORT}`));
